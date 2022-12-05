@@ -895,6 +895,7 @@ def project_last_volume(path, volume_string, n_volumes):
 
     plt.figure(figsize=(10, 10), dpi=100)
     plt.imshow(projections, cmap='gray')
+    plt.axis('off')
     plt.show()
 
 
@@ -1093,7 +1094,7 @@ def parse_star_whole(file_path):
 def display_2dclasses(
         images, model_star=[],
         columns=10, width=20, height=2,
-        label_wrap_length=10, label_font_size=8, sort=False, label=True):
+        label_wrap_length=10, label_font_size=8, sort=False, label=True, dpi=150):
     import textwrap
 
     if model_star:
@@ -1111,7 +1112,7 @@ def display_2dclasses(
         labels = np.array(labels)[sort_matrix]
 
     height = max(height, int(len(images) / columns) * height)
-    plt.figure(figsize=(width, height))
+    plt.figure(figsize=(width, height), dpi=dpi)
     for i, image in enumerate(images):
 
         plt.subplot(int(len(images) / columns + 1), columns, i + 1)
@@ -1973,10 +1974,10 @@ class class2d_run:
                    fancybox=True, shadow=True)
         plt.show()
 
-    def plot_all_classes(self):
+    def plot_all_classes(self, columns=10, width=10,dpi=100):
         self.cls_stats()
 
-        display_2dclasses(images=self.get_2dcls(), model_star=self.model_star[-1], sort=True, columns=10, width=15)
+        display_2dclasses(images=self.get_2dcls(), model_star=self.model_star[-1], sort=True, columns=columns, width=width)
 
     def get_2dcls(self):
         self.cls_stats()
